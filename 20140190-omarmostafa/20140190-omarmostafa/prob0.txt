@@ -1,0 +1,154 @@
+#include <iostream>
+
+#include <string>
+
+using namespace std;
+
+ 
+
+int compChoose(int markers);
+
+int userChoose(int markers);
+
+int random()
+
+{
+
+    int random;
+
+    random=(rand()%(3-1+1)+1);
+
+    return 0;
+
+}
+
+int main ()
+
+{
+ bool winner = false;  //Variable indicates when we have a winner
+
+  int computeChoose; //Variable represents the computer's choice
+
+  int stones = 21;  //Varriable represents the number of markers left
+
+  //Welcome player to game
+
+  cout << "Welcome to the game of Nim.  There are 21 stones."<< endl;
+
+ 
+
+  while (!winner)
+
+  {
+
+    cout <<"Enter how many you would like to take away: "<< endl;
+
+    //User makes a choice
+
+    stones -= userChoose(stones);
+
+    cout <<"The number of stones left is " << stones << "." << endl;
+
+    if (stones == 1)
+
+    {
+
+      winner = true;
+
+      cout << "You win!" << endl;
+
+    }
+
+    else
+
+    {
+
+      //Computer's turn
+
+      computeChoose = compChoose(stones);
+
+      stones -= computeChoose;
+
+      cout << "Computer chooses " << computeChoose << endl;
+
+      cout << "The number of stones left is " << stones << "." << endl;
+
+      if (stones == 1)
+
+      {
+
+    winner = true;
+
+        cout << "Computer wins" << endl;
+
+      }
+
+    }
+
+  }
+
+}
+
+int compChoose(int stones)
+
+  //Returns a random number between 1 and 3 representing the computer's choice
+
+{
+
+  int choice; //Represents computer's choice
+
+  do {
+
+    choice = (random() % 3) + 1;
+
+  } while (stones - choice < 1);
+
+  return choice;
+
+}  
+
+int userChoose(int stones)
+
+{
+
+  //Interacts with the user, allowing a choice for the game of Nim
+
+  int choice;
+
+  cin >> choice;
+
+  //Loop until a proper choice is made
+
+  while (choice <1 || choice > 3 || stones - choice <= 0)
+
+  {
+
+    if (choice < 1 || choice > 3) //Can only choose between 1 and 3
+
+    {
+
+      cout << "Your choice must be between 1 and 3" << endl;
+
+      cout << "Enter another choice: " << endl;
+
+      cin >> choice;
+
+    }
+
+    else if (stones - choice <= 0) //User has taken too many markers
+
+      {
+
+    cout << "You must leave at least one stone" << endl;
+
+        cout << "Enter another choice: " << endl;
+
+        cin >>  choice;
+
+      }
+
+  }
+
+    return 0;
+
+}
